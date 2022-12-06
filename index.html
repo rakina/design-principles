@@ -6,9 +6,9 @@
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
+  <meta content="Bikeshed version 63e66730b, updated Tue Oct 25 12:35:05 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/design-principles/" rel="canonical">
-  <meta content="53c70de5c39f46316e074158659e4bf022a915c2" name="document-revision">
+  <meta content="9aba5cf71b44387e1f14b0c7879a773cb193d99c" name="document-revision">
 <style>
     table.data {
         text-align: left;
@@ -303,6 +303,14 @@ a.self-link:hover {
 .heading > a.self-link {
     font-size: 83%;
 }
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
 li > a.self-link {
     left: calc(-1 * (3.5rem - 26px) - 2em);
 }
@@ -581,7 +589,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Web Platform Design Principles</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-09-06">6 September 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-12-06">6 December 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1205,7 +1213,7 @@ storage area changes made in the private browsing mode session
 should not be revealed to the other browsing session,
 and vice versa.
 (The <a href="https://html.spec.whatwg.org/multipage/indices.html#event-storage">storage event</a> should not be fired
-at the other session’s <a href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="termref-for-window">window object</a>.)</p>
+at the other session’s <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">window object</a>.)</p>
    </div>
    <p>See also:</p>
    <ul>
@@ -1270,7 +1278,7 @@ once per API call (<a href="https://html.spec.whatwg.org/#activation-consuming-a
 it is not always <em>sufficient</em> to protect users from invasive behaviours,
 and seeking <a href="#consent">meaningful consent</a> is also important.</p>
    <h3 class="heading settled" data-level="2.11" id="support-non-fully-active"><span class="secno">2.11. </span><span class="content">Support non-fully active BFCached documents</span><a class="self-link" href="#support-non-fully-active"></a></h3>
-   <p>Explicitly specify how your feature behaves in non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#fully-active" id="ref-for-fully-active">fully active</a> BFCached documents when necessary.</p>
+   <p>Explicitly specify how your feature behaves in non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-fully-active">fully active</a> BFCached documents when necessary.</p>
    <p>If your API does things that fall into <strong>any</strong> of the below categories:</p>
    <ul>
     <li data-md>
@@ -1278,14 +1286,14 @@ and seeking <a href="#consent">meaningful consent</a> is also important.</p>
     <li data-md>
      <p>Makes cross-document interaction/resource sharing possible (e.g. holding locks)</p>
     <li data-md>
-     <p>May malfunction when a document is kept in a non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#fully-active" id="ref-for-fully-active①">fully active</a> BFCached state (instead of getting destroyed)
+     <p>May malfunction when a document is kept in a non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-fully-active①">fully active</a> BFCached state (instead of getting destroyed)
 after the user navigates away from it or gets restored (e.g. expects that a state saved in the document won’t span multiple navigations)</p>
    </ul>
-   <p>You should specify how it works with non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#fully-active" id="ref-for-fully-active②">fully active</a> BFCached documents, following the guidelines in the <a href="TODO">Supporting BFCached Documents</a> guide.</p>
-   <p class="note" role="note"><span>Note:</span> It is possible for a document to become non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#fully-active" id="ref-for-fully-active③">fully active</a> for other reasons not related to BFcaching,
+   <p>You should specify how it works with non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-fully-active②">fully active</a> BFCached documents, following the guidelines in the <a href="TODO">Supporting BFCached Documents</a> guide.</p>
+   <p class="note" role="note"><span>Note:</span> It is possible for a document to become non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-fully-active③">fully active</a> for other reasons not related to BFcaching,
 such as when the iframe holding the document gets detached.
 This guideline only focuses on the case where BFCache is involved,
-and not other cases that might cause a document to become non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#fully-active" id="ref-for-fully-active④">fully active</a>.</p>
+and not other cases that might cause a document to become non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-fully-active④">fully active</a>.</p>
    <h3 class="heading settled" data-level="2.12" id="third-party-tools"><span class="secno">2.12. </span><span class="content">Prioritize usability over compatibility with third-party tools</span><a class="self-link" href="#third-party-tools"></a></h3>
    <p>Design new features with usability as the primary goal, and compatibility with third-party tooling as a secondary goal.</p>
    <p>The web platform benefits from a wide ecosystem of tooling
@@ -1905,10 +1913,10 @@ and which authors should not be able to define subclasses for.</p>
 This is useful when testing code which handles events:
 an author can construct an <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#event" id="ref-for-event①">Event</a></code> to pass to a method
 which handles that type of event. </p>
-   <p class="example" id="example-efe51367"><a class="self-link" href="#example-efe51367"></a> The <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window">Window</a></code> class isn’t constructible,
+   <p class="example" id="example-efe51367"><a class="self-link" href="#example-efe51367"></a> The <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window">Window</a></code> class isn’t constructible,
 because creating a new window is a privileged operation
 with significant side effects.
-Instead, the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#dom-open" id="ref-for-dom-open">window.open()</a></code> method
+Instead, the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open" id="ref-for-dom-open">window.open()</a></code> method
 is used to create new windows. </p>
    <p class="example" id="example-c23596fe"><a class="self-link" href="#example-c23596fe"></a> The <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#imagebitmap" id="ref-for-imagebitmap">ImageBitmap</a></code> class isn’t constructible,
 as it represents an immutable, ready-to-paint bitmap image,
@@ -1918,7 +1926,7 @@ Instead, the <code class="idl"><a data-link-type="idl" href="https://html.spec.w
 This prevents the creation of <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/custom-elements.html#custom-element" id="ref-for-custom-element">custom elements</a> that expose their token list attributes as <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#domtokenlist" id="ref-for-domtokenlist④">DOMTokenList</a></code>s. </p>
    <div class="example" id="example-ebdfca9b">
     <a class="self-link" href="#example-ebdfca9b"></a> Several non-constructible classes,
-like <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator">Navigator</a></code>, <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/history.html#history-3" id="ref-for-history-3">History</a></code>, or <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webcrypto/#dfn-Crypto" id="ref-for-dfn-Crypto">Crypto</a></code>,
+like <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator">Navigator</a></code>, <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#history-3" id="ref-for-history-3">History</a></code>, or <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webcrypto/#dfn-Crypto" id="ref-for-dfn-Crypto">Crypto</a></code>,
 are non-constructible because they are singletons
 representing access to per-window information.
 In these cases, something like the Web IDL <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-namespace" id="ref-for-dfn-namespace">namespace</a> feature
@@ -2087,7 +2095,7 @@ add a corresponding <code>on<em>yourevent</em></code> <a data-link-type="dfn" hr
    <p class="note" role="note"> For consistency, if the event needs to be handled by HTML and SVG elements,
 add the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-idl-attributes" id="ref-for-event-handler-idl-attributes①">event handler IDL attributes</a> on the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#globaleventhandlers" id="ref-for-globaleventhandlers">GlobalEventHandlers</a></code> interface mixin,
 instead of directly on the relevant element interface(s).
-Similarly, add <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-idl-attributes" id="ref-for-event-handler-idl-attributes②">event handler IDL attributes</a> to <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#windoweventhandlers" id="ref-for-windoweventhandlers">WindowEventHandlers</a></code> rather than <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window①">Window</a></code>. </p>
+Similarly, add <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-idl-attributes" id="ref-for-event-handler-idl-attributes②">event handler IDL attributes</a> to <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#windoweventhandlers" id="ref-for-windoweventhandlers">WindowEventHandlers</a></code> rather than <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①">Window</a></code>. </p>
    <h3 class="heading settled" data-level="7.5" id="events-are-for-notification"><span class="secno">7.5. </span><span class="content">Use events for notification</span><a class="self-link" href="#events-are-for-notification"></a></h3>
    <p>Events shouldn’t be used to trigger changes,
 only to deliver a notification that a change has already finished happening.</p>
@@ -3697,7 +3705,7 @@ so they can correct this omission.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-history-3">
-   <a href="https://html.spec.whatwg.org/multipage/history.html#history-3">https://html.spec.whatwg.org/multipage/history.html#history-3</a><b>Referenced in:</b>
+   <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#history-3">https://html.spec.whatwg.org/multipage/nav-history-apis.html#history-3</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-history-3">6.7. Classes should have constructors when possible</a>
    </ul>
@@ -3715,9 +3723,8 @@ so they can correct this omission.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-window">
-   <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">https://html.spec.whatwg.org/multipage/window-object.html#window</a><b>Referenced in:</b>
+   <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window">https://html.spec.whatwg.org/multipage/nav-history-apis.html#window</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#termref-for-window">2.8. Consider how your API should behave in private browsing mode</a>
     <li><a href="#ref-for-window">6.7. Classes should have constructors when possible</a>
     <li><a href="#ref-for-window①">7.4. Always add event handler attributes</a>
    </ul>
@@ -3861,9 +3868,16 @@ so they can correct this omission.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-fully-active">
-   <a href="https://html.spec.whatwg.org/multipage/browsers.html#fully-active">https://html.spec.whatwg.org/multipage/browsers.html#fully-active</a><b>Referenced in:</b>
+   <a href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active">https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-fully-active">2.11. Support non-fully active BFCached documents</a> <a href="#ref-for-fully-active①">(2)</a> <a href="#ref-for-fully-active②">(3)</a> <a href="#ref-for-fully-active③">(4)</a> <a href="#ref-for-fully-active④">(5)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-attr-hyperlink-href">
+   <a href="https://html.spec.whatwg.org/multipage/links.html#attr-hyperlink-href">https://html.spec.whatwg.org/multipage/links.html#attr-hyperlink-href</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-attr-hyperlink-href">3.6. Name URL-containing attributes based on their primary purpose</a>
+    <li><a href="#ref-for-attr-hyperlink-href①">8.2. Represent strings appropriately</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-attr-link-href">
@@ -3944,7 +3958,7 @@ so they can correct this omission.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-open">
-   <a href="https://html.spec.whatwg.org/multipage/window-object.html#dom-open">https://html.spec.whatwg.org/multipage/window-object.html#dom-open</a><b>Referenced in:</b>
+   <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open">https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-open">6.7. Classes should have constructors when possible</a>
    </ul>
@@ -4048,6 +4062,12 @@ so they can correct this omission.</p>
    <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-source-element">https://html.spec.whatwg.org/multipage/embedded-content.html#the-source-element</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-the-source-element">3.2. Use space-separated attributes for short lists of values, separate elements for longer lists</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-attr-img-src">
+   <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-src">https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-src</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-attr-img-src">3.6. Name URL-containing attributes based on their primary purpose</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-attr-script-src">
@@ -4596,6 +4616,7 @@ so they can correct this omission.</p>
      <li><span class="dfn-paneled" id="term-for-attr-label-for">for</span>
      <li><span class="dfn-paneled" id="term-for-the-form-element">form</span>
      <li><span class="dfn-paneled" id="term-for-fully-active">fully active</span>
+     <li><span class="dfn-paneled" id="term-for-attr-hyperlink-href">href <small>(for a)</small></span>
      <li><span class="dfn-paneled" id="term-for-attr-link-href">href <small>(for link)</small></span>
      <li><span class="dfn-paneled" id="term-for-the-img-element">img</span>
      <li><span class="dfn-paneled" id="term-for-the-input-element">input</span>
@@ -4625,6 +4646,7 @@ so they can correct this omission.</p>
      <li><span class="dfn-paneled" id="term-for-dom-settimeout">setTimeout(handler, timeout, ...arguments)</span>
      <li><span class="dfn-paneled" id="term-for-dom-dialog-showmodal">showModal()</span>
      <li><span class="dfn-paneled" id="term-for-the-source-element">source</span>
+     <li><span class="dfn-paneled" id="term-for-attr-img-src">src <small>(for img)</small></span>
      <li><span class="dfn-paneled" id="term-for-attr-script-src">src <small>(for script)</small></span>
      <li><span class="dfn-paneled" id="term-for-attr-img-srcset">srcset</span>
      <li><span class="dfn-paneled" id="term-for-the-style-element">style</span>
@@ -4796,7 +4818,7 @@ so they can correct this omission.</p>
    <dt id="biblio-css-grid-1">[CSS-GRID-1]
    <dd>Tab Atkins Jr.; et al. <a href="https://drafts.csswg.org/css-grid/"><cite>CSS Grid Layout Module Level 1</cite></a>. URL: <a href="https://drafts.csswg.org/css-grid/">https://drafts.csswg.org/css-grid/</a>
    <dt id="biblio-css-inline-3">[CSS-INLINE-3]
-   <dd>Dave Cramer; Elika Etemad; Steve Zilles. <a href="https://drafts.csswg.org/css-inline-3/"><cite>CSS Inline Layout Module Level 3</cite></a>. URL: <a href="https://drafts.csswg.org/css-inline-3/">https://drafts.csswg.org/css-inline-3/</a>
+   <dd>Dave Cramer; Elika Etemad. <a href="https://drafts.csswg.org/css-inline-3/"><cite>CSS Inline Layout Module Level 3</cite></a>. URL: <a href="https://drafts.csswg.org/css-inline-3/">https://drafts.csswg.org/css-inline-3/</a>
    <dt id="biblio-css-values-4">[CSS-VALUES-4]
    <dd>Tab Atkins Jr.; Elika Etemad. <a href="https://drafts.csswg.org/css-values-4/"><cite>CSS Values and Units Module Level 4</cite></a>. URL: <a href="https://drafts.csswg.org/css-values-4/">https://drafts.csswg.org/css-values-4/</a>
    <dt id="biblio-css21">[CSS21]
