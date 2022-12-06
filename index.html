@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 63e66730b, updated Tue Oct 25 12:35:05 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/design-principles/" rel="canonical">
-  <meta content="9aba5cf71b44387e1f14b0c7879a773cb193d99c" name="document-revision">
+  <meta content="fcec5a3112849b8ea66fc6dda31be590cde494ba" name="document-revision">
 <style>
     table.data {
         text-align: left;
@@ -1278,7 +1278,8 @@ once per API call (<a href="https://html.spec.whatwg.org/#activation-consuming-a
 it is not always <em>sufficient</em> to protect users from invasive behaviours,
 and seeking <a href="#consent">meaningful consent</a> is also important.</p>
    <h3 class="heading settled" data-level="2.11" id="support-non-fully-active"><span class="secno">2.11. </span><span class="content">Support non-fully active BFCached documents</span><a class="self-link" href="#support-non-fully-active"></a></h3>
-   <p>Explicitly specify how your feature behaves in non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-fully-active">fully active</a> BFCached documents when necessary.</p>
+   <p>Specify how your feature behaves
+in non-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-fully-active">fully active</a> BFCached (Back/forward cached) documents if possible.</p>
    <p>If your API does things that fall into <strong>any</strong> of the below categories:</p>
    <ul>
     <li data-md>
